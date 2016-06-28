@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/xc_id_model_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_white_ffffff">
+
+
+    <com.xiaocoder.android_ptr.XCMaterialGridRefreshLayout
+        android:id="@+id/xc_id_material_grid_refreshlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_orange_f96b05"
+        app:autorefresh="true" />
+
+
+</RelativeLayout>

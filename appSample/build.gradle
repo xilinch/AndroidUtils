@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "22.0.1"
+
+    productFlavors {
+        _qq {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "channel_qq"]
+        }
+        _360 {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "channel_360"]
+        }
+        _baidu {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "channel_baidu"]
+        }
+        _umeng {
+            manifestPlaceholders = [MULTI_CHANNEL_VALUE: "channel_umeng"]
+        }
+    }
+
+    defaultConfig {
+        applicationId "com.example.app"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile(name: 'xcfw-release', ext: 'aar')
+    compile 'cz.msebera.android:httpclient:4.3.6'
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'junit:junit:4.12'
+}

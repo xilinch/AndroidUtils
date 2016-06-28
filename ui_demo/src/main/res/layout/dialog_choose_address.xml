@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:background="#ffffff">
+
+    <RelativeLayout
+        android:id="@+id/relative1"
+        android:layout_width="match_parent"
+        android:layout_height="39dp"
+        android:background="#e8e9e8"
+        android:gravity="center">
+
+        <View
+            android:id="@+id/line_up"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentTop="true"
+            android:background="#d3d3d3" />
+
+        <View
+            android:id="@+id/line_down"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="#d3d3d3" />
+
+        <!-- 创建地址的 取消按钮 @c -->
+        <TextView
+            android:id="@+id/jy_id_cancle"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/line_down"
+            android:layout_below="@+id/line_up"
+            android:layout_marginLeft="30dp"
+            android:gravity="left|center_vertical"
+            android:text="取消"
+            android:textSize="15sp" />
+
+        <!-- 创建地址的 完成按钮 @c -->
+        <TextView
+            android:id="@+id/jy_id_confirm"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/line_down"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/line_up"
+            android:layout_marginRight="30dp"
+            android:gravity="right|center_vertical"
+            android:text="完成"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="160dp"
+        android:layout_below="@+id/relative1"
+        android:background="@color/c_white_ffffff">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:orientation="horizontal">
+            <!-- 省份 -->
+            <com.xiaocoder.android_ui.view.sx.SXPickerView
+                android:id="@+id/jy_id_address_province"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <!-- 城市 -->
+            <com.xiaocoder.android_ui.view.sx.SXPickerView
+                android:id="@+id/jy_id_address_city"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <!-- 街区 -->
+            <com.xiaocoder.android_ui.view.sx.SXPickerView
+                android:id="@+id/jy_id_address_town"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/create_address_frame" />
+    </RelativeLayout>
+
+</RelativeLayout>
+

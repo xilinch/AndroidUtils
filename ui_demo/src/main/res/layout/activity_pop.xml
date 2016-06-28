@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/xc_id_model_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_white_ffffff">
+
+        <Button
+            android:visibility="gone"
+            android:id="@+id/test_pop_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="test_pop_button" />
+
+        <Button
+            android:id="@+id/test_pop_button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test_pop_button"
+            android:text="test_pop_button2" />
+
+        <Button
+            android:id="@+id/test_pop_button3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/test_pop_button2"
+            android:text="test_pop_button3" />
+
+</RelativeLayout>

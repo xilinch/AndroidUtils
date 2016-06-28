@@ -1,0 +1,61 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_white_ffffff"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/xc_id_dialog_systemh"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="xc_id_dialog_systemh" />
+
+    <Button
+        android:id="@+id/xc_id_dialog_systemv"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="xc_id_dialog_systemv" />
+
+    <Button
+        android:id="@+id/xc_id_dialog_animframe_h"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="xc_id_dialog_animframe_h" />
+
+    <Button
+        android:id="@+id/xc_id_dialog_animframe_v"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="xc_id_dialog_animframe_v" />
+
+    <Button
+        android:id="@+id/xc_id_dialog_query"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="xc_id_dialog_query" />
+
+    <Button
+        android:id="@+id/xc_id_dialog_menu"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="xc_id_dialog_menu" />
+    <Button
+        android:id="@+id/xc_id_dialog_rotate"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="xc_id_dialog_rotate" />
+
+    <Button
+
+        android:id="@+id/xc_id_dialog_activity"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="xc_id_dialog_activity" />
+    <Button
+
+        android:id="@+id/xc_id_dialog_v_fragment"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:text="dialog_fragment" />
+
+</LinearLayout>

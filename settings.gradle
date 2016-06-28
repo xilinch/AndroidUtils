@@ -1,0 +1,1 @@
+include ':recordvoice', ':zxcode', ':moveview', ':ui_demo', ':ptr_demo', ':ptr', ':banner', ':zxcode_demo', ':appSample', ':scrollpager_demo', ':banner_demo', ':recordvoice_demo', ':xcfw_demo', ':ui', ':codegenerator', ':moveview_demo', ':scrollpager', ':xcfw'

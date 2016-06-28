@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/xc_id_model_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_white_ffffff">
+
+    <!-- title -->
+
+    <RelativeLayout
+        android:id="@+id/xc_id_model_titlebar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:background="@color/c_red_ff0000"
+        android:orientation="vertical" />
+
+    <!-- 内容 -->
+
+    <RelativeLayout
+        android:id="@+id/xc_id_model_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/xc_id_model_titlebar"
+        android:background="@color/c_orange_ff6600"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/activity_button"
+            android:layout_width="200dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            android:text="2StackActivity" />
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

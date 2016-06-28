@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_white_ffffff">
+
+    <RelativeLayout
+        android:id="@+id/id_main_bottombar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/c_white_ffffff">
+
+        <RadioGroup
+            android:id="@+id/id_main_tab_group"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@color/c_trans"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/id_main_tab_item1"
+                style="@style/xc_main_bottom_tab_item"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/c_white_ffffff"
+                android:checked="true"
+                android:drawableTop="@drawable/ic_launcher"
+                android:text="one" />
+
+            <RadioButton
+                android:id="@+id/id_main_tab_item2"
+                style="@style/xc_main_bottom_tab_item"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/c_white_ffffff"
+                android:drawableTop="@drawable/ic_launcher"
+                android:text="two" />
+
+            <!-- android:background="@drawable/ic" -->
+
+            <RadioButton
+                android:id="@+id/id_main_tab_item3"
+                style="@style/xc_main_bottom_tab_item"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/c_white_ffffff"
+                android:drawableTop="@drawable/ic_launcher"
+                android:text="three" />
+
+            <RadioButton
+                android:id="@+id/id_main_tab_item4"
+                style="@style/xc_main_bottom_tab_item"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/c_white_ffffff"
+                android:drawableTop="@drawable/ic_launcher"
+                android:text="four" />
+
+            <RadioButton
+                android:id="@+id/id_main_tab_item5"
+                style="@style/xc_main_bottom_tab_item"
+                android:layout_height="match_parent"
+                android:layout_gravity="bottom"
+                android:background="@color/c_white_ffffff"
+                android:drawableTop="@drawable/ic_launcher"
+                android:text="five" />
+
+        </RadioGroup>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="50dp"
+            android:background="#d4d4d4" />
+    </RelativeLayout>
+
+    <!-- 内容 -->
+    <RelativeLayout
+        android:id="@+id/id_main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/id_main_bottombar"
+        android:background="@color/c_white_ffffff">
+
+    </RelativeLayout>
+
+</RelativeLayout>

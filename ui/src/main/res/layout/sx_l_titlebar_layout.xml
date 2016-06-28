@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/sx_d_titlebar_bg">
+    <!--左边按钮-->
+    <ImageView
+        android:id="@+id/titlebar_iv_left"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/sx_dd_back_buttonselector" />
+    <!--中间内容-->
+    <TextView
+        android:id="@+id/titlebar_tv_center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:singleLine="true"
+        android:textColor="@color/c_white_ffffff"
+        android:textSize="20sp" />
+    <!--右边按钮-->
+    <ImageView
+        android:id="@+id/titlebar_iv_right"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/sx_dd_more_buttonselector" />
+</RelativeLayout>

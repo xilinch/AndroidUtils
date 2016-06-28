@@ -1,0 +1,977 @@
+package com.xiaocoder.android_xcfw.util;
+
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.os.Bundle;
+import android.text.Editable;
+import android.text.Selection;
+import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StrikethroughSpan;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.xiaocoder.android_xcfw.application.XCConstant;
+import com.xiaocoder.android_xcfw.io.XCIO;
+
+import java.io.File;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * @author xiaocoder
+ * @email fengjingyu@foxmail.com
+ * @description
+ */
+public class UtilString {
+
+    /**
+     * 泡泡数量设置
+     */
+    public static void setBubbleCount(TextView textView, String count) {
+        if (textView != null) {
+            int count_int = toInt(count);
+            if (count_int == 0) {
+                textView.setVisibility(View.INVISIBLE);
+            } else if (count_int > 0 && count_int <= 99) {
+                textView.setVisibility(View.VISIBLE);
+                textView.setText(count);
+            } else {
+                textView.setVisibility(View.VISIBLE);
+                textView.setText("...");
+            }
+        }
+    }
+
+    /**
+     * 删除最后一个指定的字符串，该字符串必须出现在最后尾，否则不会删除
+     * <p/>
+     * 123abcdefgABC ,比如justDeleteLastSymbol（"123abcdefg,"，","）可以， 返回 123abcdefg
+     * 123abcdefgABC ,,比如justDeleteLastSymbol（"123abcdefg,h"，","）不可以，返回 123abcdefg,h
+     *
+     * @param symbol
+     * @return
+     */
+    public static String justDeleteLastSymbol(String origin, String symbol) {
+        if (origin.contains(symbol)) {
+            origin = origin.trim();
+            // 最后一个该字符的位置
+            int index = origin.lastIndexOf(symbol);
+            if ((index + symbol.length()) == origin.length()) {
+                // 如果该字符是在最后尾
+                return origin.substring(0, index);
+            }
+        }
+        return origin;
+    }
+
+    /**
+     * 统计一个字符串在另外一个字符串中出现的次数
+     *
+     * @param origin
+     * @param key
+     * @return
+     */
+    public static int countTimes(String origin, String key) {
+        String temp = new String(origin);
+        int count = 0;
+        while (temp.contains(key)) {
+            count++;
+            int position = temp.indexOf(key);
+            if (position >= 0) {
+                temp = temp.substring(position + key.length(), temp.length());
+            }
+        }
+        return count;
+    }
+
+    /**
+     * 获取origin中第一个simbol之后的字符串
+     *
+     * @param origin
+     * @param symbol
+     * @return
+     */
+    public static String getAfterFirstSimbolString(String origin, String symbol) {
+        int index = origin.indexOf(symbol);
+        if (index >= 0) {
+            if (index + symbol.length() == origin.length()) {
+                return "";
+            } else {
+                return origin.substring(index + symbol.length(), origin.length()).trim();
+            }
+        }
+        return origin;
+    }
+
+    /**
+     * 获取origin中最后一个simbol之后的字符串
+     *
+     * @param origin
+     * @param symbol
+     * @return
+     */
+    public static String getAfterLastSimbolString(String origin, String symbol) {
+        int index = origin.lastIndexOf(symbol);
+        if (index >= 0) {
+            if (index + symbol.length() == origin.length()) {
+                return "";
+            } else {
+                return origin.substring(index + symbol.length(), origin.length()).trim();
+            }
+        }
+        return origin;
+    }
+
+    /**
+     * 获取origin中第一个simbol之前的字符串
+     *
+     * @param origin
+     * @param symbol
+     * @return
+     */
+    public static String getBeforeFirstSimbolString(String origin, String symbol) {
+        int index = origin.indexOf(symbol);
+        if (index > 0) {
+            return origin.substring(0, index).trim();
+        } else if (index == 0) {
+            return "";
+        }
+        return origin;
+    }
+
+    /**
+     * 获取origin中最后一个simbol之前的字符串
+     *
+     * @param origin
+     * @param symbol
+     * @return
+     */
+    public static String getBeforeLastSimbolString(String origin, String symbol) {
+        int position = origin.lastIndexOf(symbol);
+        if (position > 0) {
+            return origin.substring(0, position).trim();
+        } else if (position == 0) {
+            return "";
+        }
+        return origin;
+    }
+
+    /**
+     * 获取文件名后缀
+     */
+    public static String getHttpFileType(String origin) {
+        int position = origin.lastIndexOf(".");
+        if (position > 0) {
+            origin = origin.substring(position + 1, origin.length());
+            return origin;
+        }
+        return "";
+    }
+
+    /**
+     * 获取一个url的最后的文件名， 不带文件后缀名
+     */
+    public static String getHttplastnameWithoutDotAndLine(String http_url) {
+        int last_dot_position = http_url.lastIndexOf(".");
+
+        if (last_dot_position > 0) {
+            http_url = http_url.substring(0, last_dot_position);
+        }
+
+        int last_line_position = http_url.lastIndexOf("/");
+
+        if (last_line_position > 0) {
+            http_url = http_url.substring(last_line_position + 1, http_url.length());
+        }
+        return http_url;
+    }
+
+    /**
+     * 比较两个字符串
+     */
+    public static boolean equals(String str1, String str2) {
+
+        if (str1 == null && str2 == null) {
+
+            throw new RuntimeException("UtilString.equalsString()--传入了两个null字符串");
+
+        } else if (str1 != null) {
+
+            return str1.equals(str2);
+
+        } else {
+
+            return false;
+
+        }
+
+    }
+
+    /**
+     * 给String高亮显示 颜色的格式 #184DA3
+     */
+    public static void setLightString(String str, TextView textview, String color) {
+
+        // 实体对象值显示在控件上
+        SpannableString hightlight = new SpannableString(str);
+        // 高亮器
+        ForegroundColorSpan span = new ForegroundColorSpan(Color.parseColor(color));
+        hightlight.setSpan(span, 0, (str).length(), SpannableString.SPAN_INCLUSIVE_INCLUSIVE);
+        textview.setText(hightlight);
+    }
+
+    /**
+     * 指定 位置和 颜色   ，颜色的格式
+     */
+    public static void setLightString(String str, TextView textview, int start, int end, String color) {
+        // 实体对象值显示在控件上
+        SpannableString hightlight = new SpannableString(str);
+        // 高亮器
+        ForegroundColorSpan span = new ForegroundColorSpan(Color.parseColor(color));
+        hightlight.setSpan(span, start, end, SpannableString.SPAN_INCLUSIVE_INCLUSIVE);
+        textview.setText(hightlight);
+    }
+
+    /**
+     * 颜色的格式  Color.parseColor("#FDC2B5")
+     */
+    public static void setLightAppendString(String str, TextView textview, String color) {
+        SpannableString hightlight = new SpannableString(str);
+        // 高亮器
+        ForegroundColorSpan span = new ForegroundColorSpan(Color.parseColor(color));
+        hightlight.setSpan(span, str.indexOf("：") + 1, (str).length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textview.append(hightlight);
+        textview.append(XCIO.LINE_SEPARATOR);
+    }
+
+    /**
+     * 设置textview的文本的尺寸  20
+     */
+    public static void setSizeAppendString(String str, TextView textview, int size) {
+        // 实体对象值显示在控件上
+        SpannableString sizespan = new SpannableString(str);
+        // 字体大小
+        AbsoluteSizeSpan size_span = new AbsoluteSizeSpan(size);
+        sizespan.setSpan(size_span, 0, (str).length(), SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textview.append(sizespan);
+        textview.append(XCIO.LINE_SEPARATOR);
+    }
+
+    /**
+     * 在String上添加删除线
+     */
+    public static void setDeleteString(String str, TextView textview) {
+        // 删除线
+        SpannableString deleteLine = new SpannableString(str);
+        StrikethroughSpan delete = new StrikethroughSpan();
+        deleteLine.setSpan(delete, 0, str.length(), SpannableString.SPAN_INCLUSIVE_INCLUSIVE);
+        textview.setText(deleteLine);
+    }
+
+    /**
+     * 在String上添加删除线
+     */
+    public static void setDeleteString(TextView textview) {
+        textview.getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+    }
+
+    /**
+     * 获取文件大小,单位字节
+     *
+     * @param filePath 传入文件的绝对路径
+     * @return
+     */
+    public static long getFileSize(String filePath) {
+        long size = 0;
+        File file = new File(filePath);
+        if (file.exists()) {
+            size = file.length();
+        }
+        return size;
+    }
+
+    /**
+     * 换算文件大小含单位
+     *
+     * @param size
+     * @return
+     */
+    public static String getFileSizeByUnit(long size) {
+        if (size <= 0) {
+            return "0";
+        }
+        DecimalFormat df = new DecimalFormat("#.00");
+        String fileSizeString = "未知大小";
+        if (size < 1024) {
+            fileSizeString = df.format((double) size) + "B";
+        } else if (size < 1048576) {
+            fileSizeString = df.format((double) size / 1024) + "K";
+        } else if (size < 1073741824) {
+            fileSizeString = df.format((double) size / 1048576) + "M";
+        } else {
+            fileSizeString = df.format((double) size / 1073741824) + "G";
+        }
+        return fileSizeString;
+    }
+
+
+    /**
+     * 获取两数相除的百分比
+     */
+    public static String getPercentText(double progress, double totalLenght) {
+        DecimalFormat format = new DecimalFormat("###.00");
+        double resultSize = (double) (progress * 100 / totalLenght);
+        String reusltText = format.format(resultSize);
+        return reusltText + "%";
+    }
+
+    /**
+     * 显示下载数量
+     */
+    public static String getDownNumberText(long number) {
+        double resultSize;
+        String resultStr = "";
+        DecimalFormat format = new DecimalFormat("###.00");
+        if (number > 10000 * 10000) {// 亿
+            resultSize = number / (10000 * 10000.00);
+            resultStr = format.format(resultSize) + "亿";
+        } else if (number > 10000) {// 万
+            resultSize = number / (10000.00);
+            resultStr = format.format(resultSize) + "万";
+        } else {
+            resultStr = number + "";
+        }
+        return resultStr;
+    }
+
+    public static String delHtml(String str) {
+        String info = str.replaceAll("\\&[a-zA-Z]{1,10};", "").replaceAll("<[^>]*>", "");
+        info = info.replaceAll("[(/>)<]", "");
+        return info;
+    }
+
+    public static final String encodeURL(String str) {
+        try {
+            return URLEncoder.encode(str, XCConstant.ENCODING_UTF8);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static final String decodeURL(String str) {
+        try {
+            return URLDecoder.decode(str, XCConstant.ENCODING_UTF8);
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
+    /**
+     * 判断给定字符串是否包含空白符
+     * 空白串是指含有空格、制表符、回车符、换行符组成的字符串
+     * 若输入字符串为null或空字符串，也返回true
+     */
+    public static boolean isIncludeBlank(String input) {
+        if (input == null || "".equals(input))
+            return true;
+
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            if (c == ' ' || c == '\t' || c != '\r' || c != '\n') {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 只判断空 和 空格
+     */
+    public static boolean isBlank(String str) {
+        return (str == null || str.trim().length() == 0);// trim()也可以去除制表符
+    }
+
+
+    /**
+     * 只判断空 和 空格
+     */
+    public static boolean isAvaliable(String str) {
+        return !(str == null || str.trim().length() == 0);// trim()也可以去除制表符
+    }
+
+    /**
+     * 获取真实存在的文件的后缀名
+     */
+    public static String getFileSuffix(File file) {
+        if (file != null && file.exists() && !file.isDirectory()) {
+            String filename = file.getName();
+            if (filename.lastIndexOf(".") < 0) {
+                return null;
+            }
+            return filename.substring(filename.lastIndexOf(".") + 1);
+        }
+        return null;
+    }
+
+    /**
+     * 获取文件名(不包括后缀名)
+     *
+     * @param file
+     * @return
+     */
+    public static String getFileNameNoSuffix(File file) {
+        if (file != null && file.exists() && !file.isDirectory()) {
+            String filename = file.getName();
+            if (filename.lastIndexOf(".") < 0) {
+                return filename;
+            }
+            return filename.substring(0, filename.lastIndexOf("."));
+        }
+        return null;
+    }
+
+    /**
+     * 是否是邮件
+     */
+    public static boolean isEmail(String email) {
+        if (email == null || email.trim().length() == 0)
+            return false;
+        Pattern emailer = Pattern.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
+        return emailer.matcher(email).matches();
+    }
+
+
+    /**
+     * 是否是电话号码
+     */
+    public static boolean isPhoneNum(String num) {
+        if (num != null && num.length() == 11) {
+            // if (num.matches("1[34568]\\d{9}")) {
+            // 访问网络获取验证码
+            return true;
+            // }
+        }
+        return false;
+    }
+
+    public static int toInt(String str, int defValue) {
+        try {
+            return Integer.parseInt(str);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return defValue;
+        }
+    }
+
+    public static int toInt(Object obj) {
+        if (obj == null) {
+            return 0;
+        } else if (obj.toString().trim().replace(" ", "").equals("")) {
+            return 0;
+        }
+        return toInt(obj.toString(), 0);
+    }
+
+    public static long toLong(String obj) {
+        return toLong(obj, 0);
+    }
+
+    public static long toLong(String obj, long defValue) {
+
+        try {
+            return Long.parseLong(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return defValue;
+        }
+    }
+
+    public static double toDouble(String obj, double defValue) {
+        try {
+            return Double.parseDouble(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return defValue;
+        }
+    }
+
+    public static double toDouble(String obj) {
+        return toDouble(obj, 0D);
+    }
+
+    public static boolean toBool(String b, boolean defValue) {
+        try {
+            return Boolean.parseBoolean(b);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return defValue;
+        }
+    }
+
+    public static boolean toBool(String b) {
+        return toBool(b, false);
+    }
+
+    public static boolean isNumber(String str) {
+        try {
+            Integer.parseInt(str);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static String getMetaValue(Context context, String metaKey) {
+        Bundle metaData = null;
+        String apiKey = null;
+        if (context == null || metaKey == null) {
+            return null;
+        }
+        try {
+            ApplicationInfo ai = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            if (null != ai) {
+                metaData = ai.metaData;
+            }
+            if (null != metaData) {
+                apiKey = metaData.getString(metaKey);
+            }
+        } catch (NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return apiKey;
+    }
+
+    /**
+     * 检测输入的邮箱是否符合要求.
+     */
+    public static boolean validateEmail(String number) {
+        Pattern p = Pattern
+                .compile("^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$");
+        Matcher m = p.matcher(number);
+        return m.matches();
+    }
+
+    /**
+     * 判断固定电话
+     */
+    public static boolean isFixPhoneNumber(String gnumber) {
+        Pattern pattern = Pattern
+                .compile("0\\d{2,3}(\\(\\d{3,4}\\)|\\d{3,4}-|\\s)?\\d{8}");
+        Matcher matcher = pattern.matcher(gnumber);
+        return matcher.matches();
+    }
+
+    /**
+     * 该方法只判断银行卡是否为16-19位
+     */
+    public static boolean isValidBankCard(String card) {
+        if (TextUtils.isEmpty(card)) {
+            return false;
+        }
+        card = card.replace(" ", "");
+        int length = card.length();
+        if (length >= 16 && length <= 19) {
+            return true;
+        }
+        return false;
+
+    }
+
+
+//    public String discount(String price_orign, String price_sell, int keep_dot) {
+//
+//        double discount_num = Double.parseDouble(price_sell) / Double.parseDouble(price_orign);
+//        discount_num = discount_num * Math.pow(10, keep_dot + 2);// 显示如6.22则,但是6.226可以进一位
+//        String discount_text = discount_num + "";
+//        char c = discount_text.charAt(keep_dot + 2);
+//        // 四舍五入
+//        if (Integer.parseInt(c + "") >= 5) {
+//            discount_num = (discount_num + 10.0) / Math.pow(10, keep_dot + 1);
+//        } else {
+//            discount_num = discount_num / Math.pow(10, keep_dot + 1);
+//        }
+//        if ((discount_num + "").length() < 4) {
+//            discount_text = discount_num + "0";
+//        } else {
+//            discount_text = discount_num + "";
+//        }
+//        return discount_text.substring(0, keep_dot + 2);
+//    }
+
+    /**
+     * 设置第一个字母为小写写
+     */
+    public static String setFirstLetterSmall(String origin) {
+
+        char[] chars = origin.toCharArray();
+
+        if (chars[0] >= 65 && chars[0] < 90) {
+            chars[0] = (char) (chars[0] + 32);
+        }
+
+        return new String(chars);
+
+    }
+
+    /**
+     * 设置第一个字母为大写
+     */
+    public static String setFirstLetterBig(String origin) {
+
+        if (isBlank(origin)) {
+            return origin;
+        }
+
+        char[] chars = origin.toCharArray();
+
+        if (chars[0] >= 97 && chars[0] <= 122) {
+            chars[0] = (char) (chars[0] - 32);
+        }
+
+        return new String(chars);
+
+    }
+
+//    public static void sizeLightSpanAppend(String origin_string, TextView textview) {
+//        String[] strs = origin_string.split("\n");
+//        int i = 0;
+//        for (String str : strs) {
+//            if (i == 0) {
+//                i = 1;
+//                setSizeAppendString(str, textview, 20);
+//                continue;
+//            }
+//            if (str.indexOf("：") > 0) {
+//                setLightAppendString(str, textview, "#184DA3");
+//            } else {
+//                textview.append(str + XCIO.LINE_SEPARATOR);
+//            }
+//        }
+//    }
+
+
+    /**
+     * 加密手机号码
+     *
+     * @return 加密处理后的手机号码（当手机号码长度不是11位时，不进行加密处理）
+     */
+    public static String encrypPhoneNumber(String number) {
+        String newnumber = number;
+        if (number.trim().length() == 11) {
+            newnumber = number.substring(0, 3) + "****" + number.substring(number.length() - 4, number.length());
+        } else {
+            newnumber = number;
+        }
+        return newnumber;
+    }
+
+    /**
+     * 加密用户名
+     *
+     * @return 加密处理后的用户名（当用户名是一个字符时，不进行加密处理）
+     */
+    public static String encrypName(String name) {
+        String newName = name;
+        if (null != name && name.trim().length() > 1) {
+            if (name.length() == 2) {
+                newName = "*" + name.substring(name.length() - 1, name.length());
+            } else {
+                newName = "*" + name.substring(name.length() - 2, name.length());
+            }
+        }
+        return newName;
+    }
+
+    /**
+     * 加密邮箱
+     */
+    public static String encrypEmail(String email) {
+
+        String newemail = "";
+        if (email == null || "".equals(email.trim())) {
+            return newemail;
+        }
+        String[] subemail = email.split("@");
+        if (subemail[0].length() <= 3) {
+//    		newemail = subemail[0].substring(0)  + "***" + "@" + subemail[1];
+            newemail = subemail[0].substring(0, 1) + "***" + "@" + subemail[1];
+        } else {
+            newemail = subemail[0].substring(0, subemail[0].length() - 3) + "***" + "@" + subemail[1];
+        }
+        return newemail;
+    }
+
+    /**
+     * 加密其它证件号
+     */
+    public static String encrypCard(String cardnum) {
+        String newcardnum = "";
+        if (cardnum == null || "".equals(cardnum.trim())) {
+            return newcardnum;
+        }
+        if (cardnum.length() >= 12) {
+            newcardnum = cardnum.substring(0, cardnum.length() - 11) + "********" + cardnum.substring(cardnum.length() - 3, cardnum.length());
+        } else {
+            newcardnum = cardnum.substring(0, 1) + "********" + cardnum.substring(cardnum.length() - 3, cardnum.length());
+        }
+        return newcardnum;
+    }
+
+    /**
+     * 加密身份证(仅显示后四位)
+     */
+    public static String encrypAuthenCard(String authencardnum) {
+        String newauthencardnum = "";
+        if (authencardnum == null || "".equals(authencardnum.trim())) {
+            return newauthencardnum;
+        }
+        if (authencardnum.length() == 18) {
+            newauthencardnum = "******" + "********" + authencardnum.substring(authencardnum.length() - 4, authencardnum.length());
+        } else if (authencardnum.length() == 15) {
+            newauthencardnum = "******" + "*****" + authencardnum.substring(authencardnum.length() - 4, authencardnum.length());
+        }
+        return newauthencardnum;
+    }
+
+    /**
+     * 加密身份证
+     */
+    public static String encrypAuthenCardV2(String authencardnum) {
+        String newauthencardnum = "";
+        if (authencardnum == null || "".equals(authencardnum.trim())) {
+            return newauthencardnum;
+        }
+        if (authencardnum.length() == 18) {
+            newauthencardnum = authencardnum.substring(0, 6) + "**********" + authencardnum.substring(authencardnum.length() - 2, authencardnum.length());
+        } else if (authencardnum.length() == 15) {
+            newauthencardnum = authencardnum.substring(0, 6) + "********" + authencardnum.substring(authencardnum.length() - 1, authencardnum.length());
+        }
+        return newauthencardnum;
+    }
+
+    /**
+     * unicode 转 中文
+     *
+     * @param line
+     * @return
+     */
+    public static String parseUnicode(String line) {
+        int len = line.length();
+        char[] out = new char[len];// 保存解析以后的结果
+        int outLen = 0;
+        for (int i = 0; i < len; i++) {
+            char aChar = line.charAt(i);
+            if (aChar == '\\') {
+                aChar = line.charAt(++i);
+                if (aChar == 'u') {
+                    int value = 0;
+                    for (int j = 0; j < 4; j++) {
+                        aChar = line.charAt(++i);
+                        switch (aChar) {
+                            case '0':
+                            case '1':
+                            case '2':
+                            case '3':
+                            case '4':
+                            case '5':
+                            case '6':
+                            case '7':
+                            case '8':
+                            case '9':
+                                value = (value << 4) + aChar - '0';
+                                break;
+                            case 'a':
+                            case 'b':
+                            case 'c':
+                            case 'd':
+                            case 'e':
+                            case 'f':
+                                value = (value << 4) + 10 + aChar - 'a';
+                                break;
+                            case 'A':
+                            case 'B':
+                            case 'C':
+                            case 'D':
+                            case 'E':
+                            case 'F':
+                                value = (value << 4) + 10 + aChar - 'A';
+                                break;
+                            default:
+                                throw new IllegalArgumentException(
+                                        "UtilString--Malformed \\uxxxx encoding.");
+                        }
+                    }
+                    out[outLen++] = (char) value;
+                } else {
+                    if (aChar == 't')
+                        aChar = '\t';
+                    else if (aChar == 'r')
+                        aChar = '\r';
+                    else if (aChar == 'n')
+                        aChar = '\n';
+                    else if (aChar == 'f')
+                        aChar = '\f';
+                    out[outLen++] = aChar;
+                }
+            } else {
+                out[outLen++] = aChar;
+            }
+        }
+        return new String(out, 0, outLen);
+    }
+
+    public static String get14IMEI(String imei) {
+
+        if (!isBlank(imei)) {
+            if (imei.length() >= 15) {
+                return imei.substring(0, 14);
+            } else {
+                //小于15的情况
+                return imei;
+            }
+        } else {
+            return null;
+        }
+
+    }
+
+    /**
+     * 银行卡四位加空格
+     */
+    public static void bankCardNumAddSpace(final EditText editText) {
+        editText.addTextChangedListener(new TextWatcher() {
+            int beforeTextLength = 0;
+            int onTextLength = 0;
+            boolean isChanged = false;
+            int location = 0;// 记录光标的位置
+            private char[] tempChar;
+            private StringBuffer buffer = new StringBuffer();
+            int konggeNumberB = 0;
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                beforeTextLength = s.length();
+                if (buffer.length() > 0) {
+                    buffer.delete(0, buffer.length());
+                }
+                konggeNumberB = 0;
+                for (int i = 0; i < s.length(); i++) {
+                    if (s.charAt(i) == ' ') {
+                        konggeNumberB++;
+                    }
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                                      int count) {
+                onTextLength = s.length();
+                buffer.append(s.toString());
+                if (onTextLength == beforeTextLength || onTextLength <= 3
+                        || isChanged) {
+                    isChanged = false;
+                    return;
+                }
+                isChanged = true;
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (isChanged) {
+                    location = editText.getSelectionEnd();
+                    int index = 0;
+                    while (index < buffer.length()) {
+                        if (buffer.charAt(index) == ' ') {
+                            buffer.deleteCharAt(index);
+                        } else {
+                            index++;
+                        }
+                    }
+                    index = 0;
+                    int konggeNumberC = 0;
+                    while (index < buffer.length()) {
+                        if ((index == 4 || index == 9 || index == 14)) {
+                            buffer.insert(index, ' ');
+                            konggeNumberC++;
+                        }
+                        index++;
+                    }
+                    if (konggeNumberC > konggeNumberB) {
+                        location += (konggeNumberC - konggeNumberB);
+                    }
+                    tempChar = new char[buffer.length()];
+                    buffer.getChars(0, buffer.length(), tempChar, 0);
+                    String str = buffer.toString();
+                    if (location > str.length()) {
+                        location = str.length();
+                    } else if (location < 0) {
+                        location = 0;
+                    }
+                    editText.setText(str);
+                    Editable etable = editText.getText();
+                    Selection.setSelection(etable, location);
+                    isChanged = false;
+                }
+            }
+        });
+    }
+
+    /**
+     * 判断字符是否是数值或者中文
+     */
+    public boolean isDigitOrChinese(String str) {
+        String regex = "^[a-z0-9A-Z\u4e00-\u9fa5]+$";
+        return str.matches(regex);
+    }
+
+    /**
+     * 全角转换为半角
+     */
+    public static String toDBC(String input) {
+        char[] c = input.toCharArray();
+        for (int i = 0; i < c.length; i++) {
+            if (c[i] == 12288) {
+                c[i] = (char) 32;
+                continue;
+            }
+            if (c[i] > 65280 && c[i] < 65375)
+                c[i] = (char) (c[i] - 65248);
+        }
+        return new String(c);
+    }
+
+    /**
+     * 半角转换为全角
+     */
+    public static String toSBC(String input) {
+        // 半角转全角：
+        char[] c = input.toCharArray();
+        for (int i = 0; i < c.length; i++) {
+            if (c[i] == 32) {
+                c[i] = (char) 12288;
+                continue;
+            }
+            if (c[i] < 127)
+                c[i] = (char) (c[i] + 65248);
+        }
+        return new String(c);
+    }
+
+
+}

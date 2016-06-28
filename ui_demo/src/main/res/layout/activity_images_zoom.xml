@@ -1,0 +1,14 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/xc_id_model_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.xiaocoder.android_ui.view.xc.XCZoomViewPager
+        android:id="@+id/xc_id_xczoomviewpagerlayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/c_green_00ff00" />
+
+
+</RelativeLayout>

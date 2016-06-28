@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/id_expandlistview"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="expandListView" />
+
+            <Button
+                android:id="@+id/id_pop"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="pop" />
+
+            <Button
+                android:id="@+id/id_circleProgressBar"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="circleProgressBar" />
+
+            <Button
+                android:id="@+id/id_dialogActivity"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="dialogActivity" />
+
+            <Button
+                android:id="@+id/id_lineProgressBarActivity"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="lineProgressBarActivity" />
+
+            <Button
+                android:id="@+id/id_progressViewActivity"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="progressViewActivity" />
+
+            <Button
+                android:id="@+id/id_drawer"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="drawer" />
+
+            <Button
+                android:id="@+id/id_pickerview"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="pickerview" />
+
+            <Button
+                android:id="@+id/id_switchButton"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="switchButton" />
+
+            <Button
+                android:id="@+id/id_pagerSliding"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="pagerSliding" />
+
+            <Button
+                android:id="@+id/id_roundImage"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="roundImage" />
+
+            <Button
+                android:id="@+id/id_listview2gridview"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="listview2gridview" />
+
+            <Button
+                android:id="@+id/id_hListview"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="hListview" />
+
+            <Button
+                android:id="@+id/id_clipImage"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="clipImage" />
+
+            <Button
+                android:id="@+id/id_doubleCircleButton"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="doubleCircleButton" />
+
+            <Button
+                android:id="@+id/id_scrollview"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="scrollview" />
+
+            <Button
+                android:id="@+id/id_imagesZoom"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="imagesZoom" />
+
+            <Button
+                android:id="@+id/id_swipeAdapter"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="swipeAdapter" />
+
+            <Button
+                android:id="@+id/id_tablayout"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="tablayout" />
+
+            <Button
+                android:id="@+id/id_webView"
+                android:layout_width="200dp"
+                android:layout_height="70dp"
+                android:text="webView" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,15 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/c_white_ffffff"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    >
+
+    <com.xiaocoder.android_ui.view.pf.PFHorizontalListView
+        android:id="@+id/xc_id_horizontallistview"
+        android:layout_width="match_parent"
+        android:layout_height="60dp" />
+
+</LinearLayout>

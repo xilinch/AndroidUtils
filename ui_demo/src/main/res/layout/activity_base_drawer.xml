@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/sx_id_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/sx_id_drawer_content_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <!-- layout_gravity="end"，右边的抽屉效果 -->
+    <!-- layout_gravity="start"，左边的抽屉效果 -->
+    <RelativeLayout
+        android:id="@+id/sx_id_drawer_left_drawer"
+        android:layout_width="290dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="@color/c_orange_f96b05" />
+
+</android.support.v4.widget.DrawerLayout>

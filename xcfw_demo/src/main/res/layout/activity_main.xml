@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/id_timer"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="几个定时器的例子" />
+
+            <Button
+                android:id="@+id/id_clearcache"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="缓存清理的封装类" />
+
+            <Button
+                android:id="@+id/id_contacts"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="获取联系人" />
+
+            <Button
+                android:id="@+id/id_lineGc"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="fragment与activity销毁时的回收问题" />
+
+            <Button
+                android:id="@+id/id_exception"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="crash异常的收集" />
+
+            <Button
+                android:id="@+id/id_test"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="sp存储、日志类、克隆、加密" />
+
+            <Button
+                android:id="@+id/id_photo"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="封装了相册与摄像头获取图片的fragment" />
+
+            <Button
+                android:id="@+id/id_seachRecoder"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="多页面的搜索记录存储与activity stack的管理" />
+
+            <Button
+                android:id="@+id/id_baseAdapter"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="baseAdapter" />
+
+            <Button
+                android:id="@+id/id_recyclerView"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="recycleView" />
+
+            <Button
+                android:id="@+id/id_recycleView_waterfall"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="recycleView瀑布流" />
+
+            <Button
+                android:id="@+id/id_leakcanary"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="内存泄露检测" />
+
+            <Button
+                android:id="@+id/id_propertyAnim"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="属性动画" />
+
+            <Button
+                android:id="@+id/id_handler"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="handler详解" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/id_titlebar_root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:layout_alignParentTop="true"
+    android:background="@color/c_white_ffffff">
+    <!-- 左边的image + textview -->
+    <LinearLayout
+        android:id="@+id/id_titlebar_left_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/id_titlebar_left_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:src="@drawable/xc_d_arrow_left_white" />
+
+        <TextView
+            android:id="@+id/id_titlebar_left_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="start|center_vertical"
+            android:text=""
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- 中间的textview -->
+    <TextView
+        android:id="@+id/id_titlebar_center_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:drawablePadding="4dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/c_black_000000"
+        android:textSize="16sp" />
+
+    <!-- 右边只有一个imageview-->
+    <LinearLayout
+        android:id="@+id/id_titlebar_right_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/id_titlebar_right_imageview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:contentDescription="@null" />
+    </LinearLayout>
+
+    <!-- 右边有textview + imageview-->
+    <LinearLayout
+        android:id="@+id/id_titlebar_right2_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_toLeftOf="@+id/id_titlebar_right_layout"
+        android:layout_toStartOf="@+id/id_titlebar_right_layout"
+        android:gravity="center_vertical|end"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/id_titlebar_right2_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:gravity="center_vertical|end"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:id="@+id/id_titlebar_right2_imageview_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/id_titlebar_right2_imageview"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:contentDescription="@null" />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>
